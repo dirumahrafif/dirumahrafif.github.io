@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boso Walikan Yogya</title>
+    <style>
+      .area {
+        width: 90%;
+        margin: auto;
+      }
+      @media only screen and (min-width: 600px) {
+        .area {
+          width: 600px;
+          margin: auto;
+        }
+      }
+      .area div {
+        margin-bottom: 30px;
+      }
+      .area div label {
+        display: block;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-family: "Courier New", Courier, monospace;
+        text-align: center;
+      }
+      input {
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="area">
+      <h1>Boso Walikan Yogyakarta</h1>
+      <div>
+        <label>Sumber Kata</label>
+        <input
+          type="text"
+          id="sumber"
+          placeholder="Masukkan Kata Yang Kamu Mau"
+          onkeyup="ganti()"
+        />
+      </div>
+      <div>
+        <label>Hasil Boso Walikan</label>
+        <input type="text" disabled id="hasil" />
+      </div>
+    </div>
+    <script>
+      function ganti() {
+        var $sumber = document.getElementById("sumber").value;
+        var $hasil = document.getElementById("hasil");
+        var $baris1 = ["h", "n", "c", "r", "k"];
+        var $baris2 = ["d", "t", "s", "w", "l"];
+        var $baris3 = ["p", "dh", "j", "y", "ny"];
+        var $baris4 = ["m", "g", "b", "th", "ng"];
+
+        // sumber = dagadu
+        // hasil  = matamu
+
+        var $hasilKebalikan = "";
+        var $index_baris1 = "";
+        var $index_baris2 = "";
+        var $index_baris3 = "";
+        var $index_baris4 = "";
+        var $potongan2huruf = "";
+        var $index_baris3_2huruf = "";
+        var $index_baris4_2huruf = "";
+
+        $sumber = $sumber.toLowerCase();
+
+        var $pecahSumber = $sumber.split("");
+        for ($i = 0; $i < $pecahSumber.length; $i++) {
+          $index_baris1 = $baris1.indexOf($pecahSumber[$i].toLowerCase());
+          $index_baris2 = $baris2.indexOf($pecahSumber[$i].toLowerCase());
+          $index_baris3 = $baris3.indexOf($pecahSumber[$i].toLowerCase());
+          $index_baris4 = $baris4.indexOf($pecahSumber[$i].toLowerCase());
+
+          $potongan2huruf = $sumber.slice($i, $i + 2);
+          $index_baris3_2huruf = $baris3.indexOf($potongan2huruf);
+          $index_baris4_2huruf = $baris4.indexOf($potongan2huruf);
+
+          //   $hasilKebalikan = $hasilKebalikan + $index_baris1;
+          if ($index_baris3_2huruf >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris1[$index_baris3_2huruf];
+            $i = $i + 1;
+          } else if ($index_baris4_2huruf >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris2[$index_baris4_2huruf];
+            $i = $i + 1;
+          } else if ($index_baris1 >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris3[$index_baris1];
+          } else if ($index_baris2 >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris4[$index_baris2];
+          } else if ($index_baris3 >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris1[$index_baris3];
+          } else if ($index_baris4 >= 0) {
+            $hasilKebalikan = $hasilKebalikan + $baris2[$index_baris4];
+          } else {
+            $hasilKebalikan = $hasilKebalikan + $pecahSumber[$i];
+          }
+        }
+
+        $hasil.value = $hasilKebalikan;
+      }
+    </script>
+  </body>
+</html>
